@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Planteamientos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+      <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding class="masters">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-row>
+          <ion-col col-md-3 col-12 *ngFor="let item of items | async">
+            <ion-card>
+              <img (click)="goToArticulo(item.$key, pubId)" [attr.src]="item.thumbnail | url | async ">
+              <ion-card-content>
+                <ion-card-title>
+                  {{ item.titulo }}
+                </ion-card-title>
+              </ion-card-content>
+              <ion-row no-padding>
+                <ion-col>
+                  <button ion-button clear medium color="danger" icon-start (click)="goToArticulo(item.$key, pubId)">
+                    <ion-icon name='arrow-forward'></ion-icon>
+                    Ver Más
+                  </button>
+                </ion-col>
+              </ion-row>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

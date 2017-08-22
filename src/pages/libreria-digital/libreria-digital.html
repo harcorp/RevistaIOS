@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Libreria Digital</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+      <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col col-md-3 col-12 *ngFor="let articulo of articulos | async">
+   <ion-card >
+     <ion-card-header>
+        {{ articulo.nombre }}
+     </ion-card-header>
+      <ion-card-content>
+     {{ articulo.descripcion }}
+      </ion-card-content>
+      <ion-row>
+    <ion-col>
+      <a ion-button clear small icon-left [href]="articulo.file | url | async" download="proposed_file_name">
+        <ion-icon name="download" ></ion-icon> 
+        <div>Descargar</div>
+      </a>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        {{ articulo.type }} - {{ articulo.fecha * -1000 | date }}
+      </ion-note>
+    </ion-col>
+  </ion-row>
+   </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

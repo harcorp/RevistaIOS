@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Planteamientos</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
+        <ion-icon name="person"></ion-icon>
+      </button>
+      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
+        <ion-icon name="person-add"></ion-icon>
+      </button>
+      <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
+        <ion-icon name="exit"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="masters">
+  <ion-grid>
+    <ion-row>
+    <ion-col col-md-2 col-12>
+        <ion-card>
+          <ion-slides #slide2>
+              <ion-slide *ngFor="let banner of banners | async">
+                <img [attr.src]="banner.image | url | async" />                                                                                          
+              </ion-slide>
+          </ion-slides>
+        </ion-card>
+      </ion-col>
+      <ion-col col-sm-12 col-md-10 col-12 >
+        <ion-row>
+          <ion-col col-md-3 col-12 hideWhen="ios">
+            <ion-card>
+              <ion-card-content>
+            <ion-title>Categorías <ion-icon small name="funnel"></ion-icon></ion-title>
+            <ion-list no-lines>
+              <button ion-item (click)="filterBy(undefined)">Sin Filtro</button>
+              <button ion-item *ngFor="let categoria of categorias | async" (click)="filterBy(categoria.$key)">
+                {{ categoria.nombre }}
+              </button> 
+            </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+          <ion-col col-md-9 col-12>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-md-4 *ngFor="let item of items | async">
+                  <ion-card>
+                      <ion-slides #slide1>
+                          <ion-slide *ngFor="let imagen of item.$key | slides | async">
+                              <img [attr.src]="imagen | url | async" />                                                                                          
+                          </ion-slide>
+                      </ion-slides>
+                    <ion-card-content>
+                      <ion-card-title>
+                        {{ item.titulo }}
+                      </ion-card-title>
+                      <p>{{ item.descripcion }}</p>
+                    </ion-card-content>
+                    <ion-row no-padding>
+                      <ion-col>
+                        <button ion-button clear medium color="danger" icon-start (click)="navigateToPublicacion(item.$key)">
+                          <ion-icon name='arrow-forward'></ion-icon>
+                          Ver Más
+                        </button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-card>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

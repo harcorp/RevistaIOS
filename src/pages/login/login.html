@@ -1,0 +1,65 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Ingresar
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="masters">
+  <ion-row>
+    <ion-col col-md-8 offset-md-2 col-12>
+    
+<ion-card>
+  <ion-card-content>
+  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <ion-item>
+      <ion-label stacked>Correo Electronico</ion-label>
+      <ion-input #email formControlName="email" type="email" placeholder="Su Correo Electronico"
+        [class.invalid]="!loginForm.controls.email.valid &&
+          loginForm.controls.email.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.email.valid  &&
+      loginForm.controls.email.dirty">
+      <p>Por favor ingrese un correo valido.</p>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Contraseña</ion-label>
+      <ion-input #password formControlName="password" type="password" placeholder="Su Contraseña"
+        [class.invalid]="!loginForm.controls.password.valid &&
+          loginForm.controls.password.dirty"></ion-input>
+    </ion-item>
+    <ion-item class="error-message" *ngIf="!loginForm.controls.password.valid  &&
+      loginForm.controls.password.dirty">
+      <p>Su contraseña tiene que ser de mas de 6 caracteres.</p>
+    </ion-item>
+    <button ion-button block type="submit">
+      Ingresar
+    </button>
+  </form>
+
+  <button ion-button block clear (click)="goToResetPassword()">
+    ¿Olvido su Contraseña?
+  </button>
+<ion-row>
+  <ion-col col-12>
+  <button ion-button block outline (click)="signInFacebook()">
+    Ingresar con Facebook
+  </button>
+  </ion-col>
+<ion-col col-12>
+    <button ion-button block outline (click)="signInGoogle()">
+    Ingresar con Google
+  </button>
+</ion-col>
+</ion-row>
+  </ion-card-content>
+</ion-card>
+</ion-col>
+  </ion-row>
+</ion-content>

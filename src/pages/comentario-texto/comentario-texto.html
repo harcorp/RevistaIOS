@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>
+      Comentario
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <ion-icon name="md-close"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding class="masters">
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>
+      Publicar Comentario
+    </ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <form [formGroup]="commentForm" (submit)="cargarComentarioTexto()" novalidate>
+      <ion-item>
+        <ion-label floating>Escriba su Comentario</ion-label>
+        <ion-input #comentario formControlName="comentario" type="text"></ion-input>
+      </ion-item>
+      <ion-item class="error-message" *ngIf="!commentForm.controls.comentario.valid">
+        <p>Su comentario no puede contener mas de 255 caracteres</p>
+      </ion-item>
+      <div padding>
+      <button ion-button block>Comentar</button>
+      </div>
+    </form>
+  </ion-card-content>
+</ion-card>
+</ion-content>
