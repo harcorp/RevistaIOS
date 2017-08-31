@@ -16,8 +16,11 @@ import { ComentarioTextoPage } from "../comentario-texto/comentario-texto";
 import { ComentarioVoicePage } from "../comentario-voice/comentario-voice";
 import { ComentarioVideoPage } from "../comentario-video/comentario-video";
 import { SignupPage } from "../signup/signup";
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
 import { Articulo } from "../../models/articulo";
+import { FirebaseApp } from 'angularfire2';
+import 'firebase/storage';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
+
 
 
 @IonicPage({
@@ -45,7 +48,7 @@ export class ArticuloPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, 
               private afDB: AngularFireDatabase, public loadingCtrl: LoadingController,
             public afAuth: AngularFireAuth, public alertCtrl: AlertController,
-            private youtube: YoutubeVideoPlayer,
+            public fb: FirebaseApp, public streamingMedia: StreamingMedia,
             public toastCtrl: ToastController, private modalCtrl: ModalController) {
     afAuth.authState.subscribe(user => {
       if (!user) {
@@ -59,8 +62,19 @@ export class ArticuloPage {
     });
   }
 
-  playVideo(){
-    this.youtube.openVideo(this.articulo.video);
+  verVidComentario(file: string){
+
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Video played') },
+      errorCallback: (e) => { console.log('Error streaming') },
+      orientation: 'landscape',
+      
+    };
+
+    this.fb.storage().ref().child(file).getDownloadURL()
+    .then(v => {
+      this.streamingMedia.playVideo(v, options);      
+    });
   }
 
   ionViewDidLoad() {

@@ -17,8 +17,10 @@ import { ComentarioVoicePage } from "../pages/comentario-voice/comentario-voice"
 import { ComentarioVideoPage } from "../pages/comentario-video/comentario-video";
 import { SignupPage } from "../pages/signup/signup";
 import { GooglePlus } from '@ionic-native/google-plus';
-import { YoutubeVideoPlayer } from '@ionic-native/youtube-video-player';
-
+import { StreamingMedia } from "@ionic-native/streaming-media";
+import { Facebook } from "@ionic-native/facebook";
+import { VideoCapturePlus } from "@ionic-native/video-capture-plus";
+import { MediaCapture } from '@ionic-native/media-capture';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyB0f-eM3Eq-_V960Re-sOGlj_YA8HGvSpw",
@@ -36,8 +38,8 @@ export const firebaseConfig = {
     LoginPage,
     SignupPage,
     ComentarioTextoPage,
-    ComentarioVoicePage,
-    ComentarioVideoPage,  
+    ComentarioVideoPage,
+    ComentarioVoicePage
   ],
   imports: [
     BrowserModule,
@@ -55,8 +57,8 @@ export const firebaseConfig = {
     LoginPage,
     SignupPage,
     ComentarioTextoPage,
-    ComentarioVoicePage,
-    ComentarioVideoPage
+    ComentarioVideoPage,
+    ComentarioVoicePage
   ],
   providers: [
     StatusBar,
@@ -64,7 +66,10 @@ export const firebaseConfig = {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     GooglePlus,
-    YoutubeVideoPlayer
+    Facebook,
+    StreamingMedia,
+    VideoCapturePlus,
+    MediaCapture,
   ],
 })
 export class AppModule {}

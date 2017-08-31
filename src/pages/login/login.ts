@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ViewController, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ViewController, ToastController, Platform } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
 import { AngularFireAuth } from "angularfire2/auth";
 import {AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database'
 import * as firebase from 'firebase/app';
+import { Facebook } from '@ionic-native/facebook';
+import { GooglePlus } from "@ionic-native/google-plus";
 
 @IonicPage({
   segment: 'ingresar'
@@ -25,6 +27,7 @@ export class LoginPage {
         public authData: AuthProvider, public formBuilder: FormBuilder,
         public viewCtrl: ViewController, public afAuth: AngularFireAuth,
         public toastCtrl: ToastController,public afDB: AngularFireDatabase,
+        private platform: Platform, private fb: Facebook, private googlePlus: GooglePlus,
         public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
       this.loginForm = formBuilder.group({
@@ -55,12 +58,17 @@ export class LoginPage {
           });
         });
 
-        this.loading = this.loadingCtrl.create({
-          dismissOnPageChange: true,
-        });
-        this.loading.present();
+        this.presentLoading();
       }
   }
+
+  presentLoading(){
+    this.loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+    });
+    this.loading.present();
+  }
+
 
   goToResetPassword(){
     this.navCtrl.push('ResetPassswordPage');
@@ -75,36 +83,62 @@ export class LoginPage {
   }
 
   signInFacebook() {
-    this.afAuth.auth
-      .signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(res => {
-          this.usuario = this.afDB.object('/users/' + res.user.uid);
-          this.usuario.set({nombre: res.user.displayName, profilePicture: res.user.photoURL})
+    this.presentLoading();
+    if (this.platform.is('cordova')) {
+      this.fb.login(['email', 'public_profile']).then(res => {
+        const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+        this.afAuth.auth.signInWithCredential(facebookCredential).then(res => {
+          
+          this.usuario = this.afDB.object('/users/' + res.uid);
+          this.usuario.set({nombre: res.displayName, profilePicture: res.photoURL})
             .then(result => {
               let toast = this.toastCtrl.create({
                 message: 'Ingreso correcto',
                 duration: 3000
               });
               toast.present();
-              this.viewCtrl.dismiss();
-            });
-      });
-  }
-
-  signInGoogle(){
-        this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-          this.usuario = this.afDB.object('/users/' + res.user.uid);
-          this.usuario.set({nombre: res.user.displayName, profilePicture: res.user.photoURL})
-            .then(result => {
-              let toast = this.toastCtrl.create({
-                message: 'Ingreso correcto',
-                duration: 3000
-              });
-              toast.present();
+              this.loading.dismiss();
               this.viewCtrl.dismiss();
             });
         });
+      })
+    }
+  }
 
+  signInGoogle(){
+    this.presentLoading();
+    if (this.platform.is('cordova')) {
+        this.googlePlus.login({
+          'webClientId': '17548864478-3vrj2t96p0l96sblij6l0pbjf53rs5as.apps.googleusercontent.com'
+        }).then(res => {
+          this.afAuth.auth.signInWithCredential(res.idToken).then(res => {
+            
+            this.usuario = this.afDB.object('/users/' + res.uid);
+            this.usuario.set({nombre: res.displayName, profilePicture: res.photoURL})
+              .then(result => {
+                let toast = this.toastCtrl.create({
+                  message: 'Ingreso correcto',
+                  duration: 3000
+                });
+                toast.present();
+                this.loading.dismiss();
+                this.viewCtrl.dismiss();
+              });
+          });
+        });
+        /*this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
+          this.usuario = this.afDB.object('/users/' + res.user.uid);
+          this.usuario.set({nombre: res.user.displayName, profilePicture: res.user.photoURL})
+            .then(result => {
+              let toast = this.toastCtrl.create({
+                message: 'Ingreso correcto',
+                duration: 3000
+              });
+              toast.present();
+              this.viewCtrl.dismiss();
+            });
+        });*/
+      }
   }
 
 }

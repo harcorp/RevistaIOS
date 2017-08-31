@@ -17,10 +17,7 @@
     <ion-col col-md-10 offset-md-1>
       <ion-card>
         <ion-card-content text-center>
-          <audio #audio class="audio" controls autoplay [hidden]="!grabado"></audio>
-          <button ion-button color="primary" (click)="startRecording()" icon-left *ngIf="!grabando"> <ion-icon name="mic"></ion-icon> Grabar </button>
-          <button ion-button color="primary"(click) ="stopRecording()" *ngIf="grabando"> Detener</button>
-          <button ion-button color="primary" (click)="upload()" *ngIf="grabado">Cargar</button>
+          <button ion-button color="primary" (click)="startRecording()" icon-left> <ion-icon name="mic"></ion-icon> Grabar </button>
         </ion-card-content>
       </ion-card>
     </ion-col>

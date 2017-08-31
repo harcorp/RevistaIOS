@@ -24,7 +24,7 @@ export class MyApp {
     ];
     this.pages2 = [
       { title: 'Quienes Somos', component: 'QuienesSomosPage', icon: 'contacts'},
-      { title: 'Historia', component: 'HistoriaPage', icon: 'medal'},
+      //{ title: 'Historia', component: 'HistoriaPage', icon: 'medal'},
       { title: 'Contacto', component: 'ContactoPage', icon: 'mail'},
     ]
 

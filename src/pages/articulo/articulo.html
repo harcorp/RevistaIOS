@@ -22,9 +22,16 @@
 <ion-content padding class="masters">
   <ion-grid>
     <ion-row>
-      <ion-col col-md-8 col-12>
-        <ion-card no-padding>
-          <button ion-button block (click)="playVideo()">Reproducir Video</button>
+      <ion-col col-12>
+        <ion-card>
+            <iframe width="100%" height="260" [src]="articulo.video | youtube" frameborder="0" allowfullscreen>
+              </iframe>
+          <ion-card-content>
+            <ion-card-title text-wrap>
+              {{ articulo.titulo }}
+            </ion-card-title>
+          <p>{{ articulo.descripcion }}</p>
+          </ion-card-content>
         </ion-card>
         <ion-card>
           <ion-card-header>
@@ -35,29 +42,20 @@
           
           <ion-card-content>
             <ion-list>
-              <ion-item *ngFor="let comentario of comentarios | async">
+              <ion-item text-wrap *ngFor="let comentario of comentarios | async">
                   <h2>{{ comentario.uid_user | getName | async }}</h2>
                   <p *ngIf="comentario.type == 1">{{ comentario.texto }}</p>
                   <p *ngIf="comentario.type == 2">
                     <audio controlsList="nodownload" controls [attr.src]="comentario.file | url | async"></audio>
                   </p>
                   <p *ngIf="comentario.type == 3">
-                    <video controlsList="nodownload" width="320" height="240" [attr.src]="comentario.file | url | async" controls>
-                    </video>
+                      <video controls="controls" preload="metadata" autoplay="autoplay" webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                          <source [attr.src]="comentario.file | url | async" type="video/webm" />
+                         </video>
                   </p>
+                  <button *ngIf="comentario.type == 3" ion-button block outline (click)="verVidComentario(comentario.file)">Ver Video</button>
               </ion-item>
             </ion-list>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-      <ion-col col-md-4 col-12>
-        <ion-card>
-          <img [attr.src]="articulo.thumbnail | url | async">
-          <ion-card-content>
-              <ion-card-title>
-                {{ articulo.titulo }}
-              </ion-card-title>
-              <p>{{ articulo.descripcion }}
           </ion-card-content>
         </ion-card>
       </ion-col>

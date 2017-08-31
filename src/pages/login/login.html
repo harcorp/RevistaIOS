@@ -13,7 +13,7 @@
 
 <ion-content padding class="masters">
   <ion-row>
-    <ion-col col-md-8 offset-md-2 col-12>
+    <ion-col col-md-10 offset-md-1 col-12>
     
 <ion-card>
   <ion-card-content>
@@ -46,18 +46,26 @@
   <button ion-button block clear (click)="goToResetPassword()">
     ¿Olvido su Contraseña?
   </button>
-<ion-row>
-  <ion-col col-12>
-  <button ion-button block outline (click)="signInFacebook()">
-    Ingresar con Facebook
-  </button>
-  </ion-col>
-<ion-col col-12>
-    <button ion-button block outline (click)="signInGoogle()">
-    Ingresar con Google
-  </button>
-</ion-col>
-</ion-row>
+  <ion-row>
+        <ion-col col-md-6 col-12>
+            <button ion-button block outline icon-left (click)="signInGoogle()">
+              <ion-icon name="logo-google"></ion-icon>
+            Google
+          </button>
+        </ion-col>
+        <ion-col col-md-6 col-12>
+            <button ion-button block outline icon-left (click)="signInFacebook()">
+              <ion-icon name="logo-facebook"></ion-icon>Facebook
+            </button>
+            </ion-col>
+        <ion-col col-12>
+          <ion-note>
+            <a href="https://firebasestorage.googleapis.com/v0/b/revista-digital-bb5d4.appspot.com/o/AVISO_DE_PRIVACIDAD.pdf?alt=media&token=834b6ca1-97d4-4cf4-912f-7fe1ebdc0888" target="_blank">
+              *Política de privacidad y tratamiento de datos personales
+            </a>
+          </ion-note>
+          </ion-col>
+    </ion-row>
   </ion-card-content>
 </ion-card>
 </ion-col>

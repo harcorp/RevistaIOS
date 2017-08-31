@@ -1,12 +1,13 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ModalController, Slides } from 'ionic-angular';
 import { FirebaseApp } from 'angularfire2';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Subject } from "rxjs/Subject";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { LoginPage } from "../login/login";
 import { SignupPage } from "../signup/signup";
+import { Datos } from "../../models/datos";
 
 @IonicPage()
 @Component({
@@ -26,11 +27,19 @@ export class ArticulosPage {
 
   @ViewChild('slide1') slide1: Slides;
   @ViewChild('slide2') slide2: Slides;
+
+  datos: FirebaseObjectObservable<any>;
+  dato: Datos = new Datos;
   
   
   constructor(public navCtrl: NavController, public navParams: NavParams, afDB: AngularFireDatabase,
               public afAuth: AngularFireAuth, private modalCtrl: ModalController,
               public firebaseApp: FirebaseApp, public loadingCtrl: LoadingController) {
+    
+                this.datos = afDB.object('/datos', { preserveSnapshot: true });
+                this.datos.subscribe(v => {
+                  this.dato = v.val();
+                })
 
     this.sizeSubject = new BehaviorSubject(undefined);
     this.items = afDB.list('/publicaciones', {

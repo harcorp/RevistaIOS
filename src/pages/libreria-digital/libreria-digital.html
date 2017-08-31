@@ -30,13 +30,13 @@
      {{ articulo.descripcion }}
       </ion-card-content>
       <ion-row>
-    <ion-col>
+    <ion-col col-12>
       <a ion-button clear small icon-left [href]="articulo.file | url | async" download="proposed_file_name">
         <ion-icon name="download" ></ion-icon> 
         <div>Descargar</div>
       </a>
     </ion-col>
-    <ion-col center text-center>
+    <ion-col col-12 center text-center>
       <ion-note>
         {{ articulo.type }} - {{ articulo.fecha * -1000 | date }}
       </ion-note>
