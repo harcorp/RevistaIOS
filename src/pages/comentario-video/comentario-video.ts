@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, Platform } from 'ionic-angular';
 import { VideoCapturePlus, VideoCapturePlusOptions, MediaFile } from '@ionic-native/video-capture-plus';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { FirebaseApp } from 'angularfire2';
@@ -25,6 +25,7 @@ export class ComentarioVideoPage {
   constructor(private fb: FirebaseApp,
     private afDB: AngularFireDatabase, private toastCtrl: ToastController,
     private loadingCtrl: LoadingController, private videoCapturePlus: VideoCapturePlus,
+    public platform: Platform,
     public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
 
       this.uidUser = this.navParams.get('uidUser');
@@ -38,11 +39,12 @@ export class ComentarioVideoPage {
       limit: 1,
       highquality: false,
       frontcamera: true,
+      duration: 120,
     }
     
       this.videoCapturePlus.captureVideo(options)
       .then(mediaFile => {
-         var prueba: MediaFile[] = mediaFile;
+          var prueba: MediaFile[] = mediaFile;
           this.nativepath = prueba[0].fullPath;
           this.upload();
       })
@@ -55,7 +57,10 @@ export class ComentarioVideoPage {
       dismissOnPageChange: true
     });
     loader.present();
-    this.nativepath = "file://" + this.nativepath;
+    if(this.platform.is('ios')){
+      this.nativepath = "file://" + this.nativepath;
+    }
+    
     (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
       res.file((resFile) => {
         var reader = new FileReader();

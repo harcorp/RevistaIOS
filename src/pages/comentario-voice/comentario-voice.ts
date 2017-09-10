@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, ToastController, LoadingController, Platform } from 'ionic-angular';
 import { AngularFireDatabase ,FirebaseListObservable } from "angularfire2/database";
 import { FirebaseApp } from 'angularfire2';
 import 'firebase/storage';
@@ -20,9 +20,11 @@ export class ComentarioVoicePage {
   commentsUser: FirebaseListObservable<any>;
   loader: any;
   nativepath: any;
+  error: any;
 
   constructor(private toastCtrl: ToastController, private fb: FirebaseApp, private afDB: AngularFireDatabase,
     private loadingCtrl: LoadingController, private mediaCapture: MediaCapture,
+    private platform: Platform,
     public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
     this.uidUser = this.navParams.get('uidUser');
     this.articuloId = this.navParams.get('articuloId');
@@ -49,6 +51,7 @@ export class ComentarioVoicePage {
 
     this.mediaCapture.captureAudio(options).then((mediaFiles: MediaFile[]) => {
       this.nativepath = mediaFiles[0].fullPath;
+      this.error = this.nativepath;
       this.upload();
     }, (err: CaptureError) => {
       if(err.code == "3")
@@ -62,7 +65,9 @@ export class ComentarioVoicePage {
       dismissOnPageChange: true
     });
     loader.present();
-    this.nativepath = "file://" + this.nativepath;
+    if(this.platform.is('ios')){
+      this.nativepath = "file://" + this.nativepath;
+    }
     (<any>window).resolveLocalFileSystemURL(this.nativepath, (res) => {
       res.file((resFile) => {
         var reader = new FileReader();

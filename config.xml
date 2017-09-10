@@ -3,7 +3,7 @@
     <name>Planteamientos</name>
     <description>Revista Planteamientos</description>
     <author email="desarrollo@harcorp.com.co" href="http://harcorp.com.co/">Harcorp Colombia</author>
-    <content original-src="index.html" src="http://192.168.0.21:8101" />
+    <content original-src="index.html" src="http://192.168.0.21:8100" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -24,6 +24,7 @@
     <preference name="SplashScreenDelay" value="3000" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
         <icon density="mdpi" src="resources/android/icon/drawable-mdpi-icon.png" />
         <icon density="hdpi" src="resources/android/icon/drawable-hdpi-icon.png" />
@@ -46,6 +47,7 @@
     <platform name="ios">
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
+        <preference name="loadUrlTimeoutValue" value="700000" />
         <icon height="57" src="resources/ios/icon/icon.png" width="57" />
         <icon height="114" src="resources/ios/icon/icon@2x.png" width="114" />
         <icon height="40" src="resources/ios/icon/icon-40.png" width="40" />
@@ -83,6 +85,7 @@
     <allow-navigation href="http://192.168.1.6:8100" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
+    <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.hutchind.cordova.plugins.streamingmedia" spec="~0.1.4" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
