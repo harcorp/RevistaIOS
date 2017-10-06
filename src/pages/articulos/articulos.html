@@ -3,13 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Planteamientos</ion-title>
+    <ion-title>Planteamientos en Educación</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
         <ion-icon name="person"></ion-icon>
-      </button>
-      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
-        <ion-icon name="person-add"></ion-icon>
       </button>
       <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
         <ion-icon name="exit"></ion-icon>
@@ -35,6 +32,41 @@
       </ion-col>
       <ion-col col-12>
         <ion-row>
+          <h1>Ediciones</h1>
+          <ion-col col-12 col-md-6>
+              <ion-grid>
+                <ion-row>
+                  <ion-col col-12 *ngFor="let item of items | async">
+                    <ion-card (click)="navigateToPublicacion(item.$key)">
+                        <ion-slides #slide1>
+                            <ion-slide *ngFor="let imagen of item.$key | slides | async">
+                                <img [attr.src]="imagen | url | async" />                                                                                          
+                            </ion-slide>
+                        </ion-slides>
+                      <ion-card-content>
+                        <ion-card-title>
+                          {{ item.titulo }}
+                        </ion-card-title>
+                        <p>{{ item.descripcion }}</p>
+                      </ion-card-content>
+                      <ion-row no-padding>
+                        <ion-col>
+                          <button ion-button clear medium color="danger" icon-start (click)="navigateToPublicacion(item.$key)">
+                            <ion-icon name='arrow-forward'></ion-icon>
+                            Ver Más
+                          </button>
+                        </ion-col>
+                      </ion-row>
+                    </ion-card>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+            <ion-col col-12 col-md-6>
+              <ion-card>
+                <img [attr.src]="dato.imagen2 | url | async" alt="Lanzamiento" />
+              </ion-card>
+            </ion-col>
           <ion-col col-12 col-md-6>
             <ion-card>
                 <iframe width="100%" height="auto" [src]="dato.videoId | youtube" frameborder="0" allowfullscreen>
@@ -42,38 +74,13 @@
             </ion-card>
             <ion-card>
                 <img [attr.src]="dato.imagen | url | async">
-                <audio style="width: 100%" controlsList="nodownload" controls [attr.src]="dato.audio | url | async"></audio>                
+                <audio style="width: 100%" controlsList="nodownload" controls [attr.src]="dato.audio | url | async"></audio>           
+                <ion-card-content>
+                  <p> {{ dato.texto }}</p>  
+                </ion-card-content>     
             </ion-card>
           </ion-col>
-          <ion-col col-12 col-md-6>
-            <ion-grid>
-              <ion-row>
-                <ion-col col-12 *ngFor="let item of items | async">
-                  <ion-card (click)="navigateToPublicacion(item.$key)">
-                      <ion-slides #slide1>
-                          <ion-slide *ngFor="let imagen of item.$key | slides | async">
-                              <img [attr.src]="imagen | url | async" />                                                                                          
-                          </ion-slide>
-                      </ion-slides>
-                    <ion-card-content>
-                      <ion-card-title>
-                        {{ item.titulo }}
-                      </ion-card-title>
-                      <p>{{ item.descripcion }}</p>
-                    </ion-card-content>
-                    <ion-row no-padding>
-                      <ion-col>
-                        <button ion-button clear medium color="danger" icon-start (click)="navigateToPublicacion(item.$key)">
-                          <ion-icon name='arrow-forward'></ion-icon>
-                          Ver Más
-                        </button>
-                      </ion-col>
-                    </ion-row>
-                  </ion-card>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
-          </ion-col>
+          
         </ion-row>
       </ion-col>
 

@@ -3,13 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Contacto</ion-title>
+    <ion-title>Planteamientos en Educación</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
         <ion-icon name="person"></ion-icon>
-      </button>
-      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
-        <ion-icon name="person-add"></ion-icon>
       </button>
       <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
         <ion-icon name="exit"></ion-icon>
@@ -33,6 +30,13 @@
             <p>Teléfono: (57-1) 2695658</p>
             <p>Bogotá - Colombia</p>
             <p>Correo: rev.planteamientoseneducacion@epe.edu.co</p>
+            <a href="https://www.facebook.com/Revista-Planteamientos-En-Educación-353670338419375/" target="_blank" ion-button only-icon
+            color="royal" class="social">
+            <ion-icon name="logo-facebook"></ion-icon>
+          </a>
+          <a href="https://twitter.com/rplanteamientos" target="_blank" ion-button only-icon color="royal" class="social">
+            <ion-icon name="logo-twitter"></ion-icon>
+          </a>
         </ion-card-content>
       </ion-card>
     </ion-col>

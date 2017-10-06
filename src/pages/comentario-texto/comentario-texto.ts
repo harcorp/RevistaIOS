@@ -22,7 +22,7 @@ export class ComentarioTextoPage {
     public viewCtrl: ViewController,
     public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
     this.commentForm = fb.group({
-      comentario: ['', Validators.compose([Validators.maxLength(255), Validators.required])]
+      comentario: ['', Validators.compose([Validators.maxLength(3533), Validators.required])]
     });
 
     this.uidUser = this.navParams.get('uidUser');

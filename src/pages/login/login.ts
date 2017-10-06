@@ -1,5 +1,6 @@
+import { SignupPage } from './../signup/signup';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ViewController, ToastController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, Loading, AlertController, ViewController, ToastController, Platform, ModalController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { EmailValidator } from '../../validators/email';
@@ -27,6 +28,7 @@ export class LoginPage {
         public authData: AuthProvider, public formBuilder: FormBuilder,
         public viewCtrl: ViewController, public afAuth: AngularFireAuth,
         public toastCtrl: ToastController,public afDB: AngularFireDatabase,
+        private modalCtrl: ModalController,
         private platform: Platform, private fb: Facebook, private googlePlus: GooglePlus,
         public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
@@ -42,6 +44,7 @@ export class LoginPage {
       } else {
         this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password)
         .then( authData => {
+          this.loading.dismiss();
           this.navCtrl.pop();
         }, error => {
           this.loading.dismiss().then( () => {
@@ -126,19 +129,11 @@ export class LoginPage {
               });
           });
         });
-        /*this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(res => {
-          this.usuario = this.afDB.object('/users/' + res.user.uid);
-          this.usuario.set({nombre: res.user.displayName, profilePicture: res.user.photoURL})
-            .then(result => {
-              let toast = this.toastCtrl.create({
-                message: 'Ingreso correcto',
-                duration: 3000
-              });
-              toast.present();
-              this.viewCtrl.dismiss();
-            });
-        });*/
       }
   }
 
+  goToSignUp() {
+    let modal = this.modalCtrl.create(SignupPage);
+    modal.present();
+  }
 }

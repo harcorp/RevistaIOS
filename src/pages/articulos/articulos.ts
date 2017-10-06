@@ -31,7 +31,6 @@ export class ArticulosPage {
   datos: FirebaseObjectObservable<any>;
   dato: Datos = new Datos;
   
-  
   constructor(public navCtrl: NavController, public navParams: NavParams, afDB: AngularFireDatabase,
               public afAuth: AngularFireAuth, private modalCtrl: ModalController,
               public firebaseApp: FirebaseApp, public loadingCtrl: LoadingController) {
@@ -96,7 +95,6 @@ export class ArticulosPage {
       this.slide2.autoplay = 3000;
       this.slide2.startAutoplay(); 
     }
-
   }
 
   filterBy(size: any) {

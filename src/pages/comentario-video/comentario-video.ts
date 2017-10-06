@@ -94,6 +94,7 @@ export class ComentarioVideoPage {
               parent: this.pubId,
             }).then(resultado => {
               loader.dismiss();
+              this.dismiss();
               this.presentToast('Su comentario en video fue enviado con exito. A la espera de aprobación');
             });
             });

@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.revistaPlanteamientos" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.doinmedia.planteamientos" version="1.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Planteamientos</name>
-    <description>Revista Planteamientos</description>
+    <description>Revista Planteamientos en Educación</description>
     <author email="desarrollo@harcorp.com.co" href="http://harcorp.com.co/">Harcorp Colombia</author>
-    <content original-src="index.html" src="http://192.168.0.21:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-navigation href="http://ionic.local/*" />
     <allow-intent href="http://*/*" />
@@ -78,6 +78,17 @@
         <splash height="1024" src="resources/ios/splash/Default-Portrait~ipad.png" width="768" />
         <splash height="960" src="resources/ios/splash/Default@2x~iphone.png" width="640" />
         <splash height="480" src="resources/ios/splash/Default~iphone.png" width="320" />
+        <icon height="1024" src="resources/ios/icon/icon-1024.png" width="1024" />
+        <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
+        <config-file parent="NSPhotoLibraryUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Esta aplicación necesita acceso a la libreria para mejorar la experiencia de usuario.</string>
+        </config-file>
+        <config-file parent="NSCameraUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Permitir para grabar comentario.</string>
+        </config-file>
+        <config-file parent="NSMicrophoneaUsageDescription" platform="ios" target="*-Info.plist">
+            <string>Permitir para grabar comentario.</string>
+        </config-file>
     </platform>
     <allow-navigation href="http://192.168.0.21:8100" />
     <allow-navigation href="http://192.168.0.21:8101" />
@@ -85,7 +96,6 @@
     <allow-navigation href="http://192.168.1.6:8100" />
     <allow-intent href="*" />
     <allow-navigation href="*" />
-    <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="^4.4.0" />
     <plugin name="com.hutchind.cordova.plugins.streamingmedia" spec="~0.1.4" />
     <plugin name="cordova-plugin-console" spec="^1.0.5" />
@@ -100,9 +110,9 @@
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.17548864478-3vrj2t96p0l96sblij6l0pbjf53rs5as" />
     </plugin>
     <plugin name="cordova-plugin-media-capture" spec="^1.4.3">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-        <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" " />
-        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value=" " />
+        <variable name="CAMERA_USAGE_DESCRIPTION" value="Danos permiso para poder comentar con video." />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Danos permiso para poder comentar con audio" />
+        <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Danos permiso para poder mejorar la experiencia de usuario." />
     </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />
     <plugin name="cordova-plugin-statusbar" spec="^2.2.2" />

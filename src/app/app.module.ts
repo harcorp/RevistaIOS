@@ -35,16 +35,16 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    LoginPage,
-    SignupPage,
-    ComentarioTextoPage,
-    ComentarioVideoPage,
-    ComentarioVoicePage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: 'Volver',
+      platforms: {
+        ios: {
+          statusbarPadding: false
+        }
+      }
     }),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,

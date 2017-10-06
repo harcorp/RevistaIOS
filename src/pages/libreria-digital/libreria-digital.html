@@ -3,13 +3,10 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Libreria Digital</ion-title>
+    <ion-title>Planteamientos en Educación</ion-title>
     <ion-buttons end>
       <button ion-button icon-left color="royal" (click)="goToLogin()" *ngIf="!logged" icon-only> 
         <ion-icon name="person"></ion-icon>
-      </button>
-      <button ion-button icon-left (click)="goToSignUp()" *ngIf="!logged" icon-only>
-        <ion-icon name="person-add"></ion-icon>
       </button>
       <button ion-button icon-left color="royal" (click)="signOut()" *ngIf="logged" icon-only>
         <ion-icon name="exit"></ion-icon>
@@ -31,9 +28,9 @@
       </ion-card-content>
       <ion-row>
     <ion-col col-12>
-      <a ion-button clear small icon-left [href]="articulo.file | url | async" download="proposed_file_name">
+      <a ion-button clear small icon-left [href]="articulo.url">
         <ion-icon name="download" ></ion-icon> 
-        <div>Descargar</div>
+        <div>Adquirir</div>
       </a>
     </ion-col>
     <ion-col col-12 center text-center>
