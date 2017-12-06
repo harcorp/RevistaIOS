@@ -109,9 +109,10 @@
     <plugin name="cordova-plugin-googleplus" spec="^5.1.1">
         <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.17548864478-3vrj2t96p0l96sblij6l0pbjf53rs5as" />
     </plugin>
+    <plugin name="cordova-plugin-inappbrowser" spec="^1.7.1" />
     <plugin name="cordova-plugin-media-capture" spec="^1.4.3">
         <variable name="CAMERA_USAGE_DESCRIPTION" value="Danos permiso para poder comentar con video." />
-        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Danos permiso para poder comentar con audio" />
+        <variable name="MICROPHONE_USAGE_DESCRIPTION" value="Danos permiso para poder comentar con audio." />
         <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="Danos permiso para poder mejorar la experiencia de usuario." />
     </plugin>
     <plugin name="cordova-plugin-splashscreen" spec="^4.0.3" />

@@ -1,3 +1,4 @@
+import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule, enableProdMode } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -70,6 +71,7 @@ export const firebaseConfig = {
     StreamingMedia,
     VideoCapturePlus,
     MediaCapture,
+    InAppBrowser
   ],
 })
 export class AppModule {}

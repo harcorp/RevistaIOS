@@ -4,6 +4,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { LoginPage } from "../login/login";
 import { SignupPage } from "../signup/signup";
+import { InAppBrowser , InAppBrowserOptions } from '@ionic-native/in-app-browser';
+
 @IonicPage()
 @Component({
   selector: 'page-libreria-articulos',
@@ -16,8 +18,26 @@ export class LibreriaArticulosPage {
   logged: boolean;
   uidUser: string;
 
+  options : InAppBrowserOptions = {
+    location : 'yes',//Or 'no' 
+    hidden : 'no', //Or  'yes'
+    clearcache : 'yes',
+    clearsessioncache : 'yes',
+    zoom : 'yes',//Android only ,shows browser zoom controls 
+    hardwareback : 'yes',
+    mediaPlaybackRequiresUserAction : 'no',
+    shouldPauseOnSuspend : 'no', //Android only 
+    closebuttoncaption : 'Close', //iOS only
+    disallowoverscroll : 'no', //iOS only 
+    toolbar : 'yes', //iOS only 
+    enableViewportScale : 'no', //iOS only 
+    allowInlineMediaPlayback : 'no',//iOS only 
+    presentationstyle : 'pagesheet',//iOS only 
+    fullscreen : 'yes',//Windows only    
+};
+
   constructor(private afAuth : AngularFireAuth, private afDb: AngularFireDatabase,
-    private modalCtrl: ModalController,
+    private modalCtrl: ModalController, private inAppBrow: InAppBrowser,
     public navCtrl: NavController, public navParams: NavParams) {
 
     this.articulos = this.afDb.list('/biblioteca_articulos', {
@@ -50,5 +70,10 @@ export class LibreriaArticulosPage {
 
   signOut() {
     this.afAuth.auth.signOut();
+  }
+
+  openLink(url: string){
+    let target = "_blank";
+    this.inAppBrow.create(url,target,this.options);
   }
 }
